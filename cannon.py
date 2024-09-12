@@ -2,8 +2,10 @@
 
 Exercises
 
-1. Cambiar la velocidad de los proyectiles.
-2. Change the speed of the ball.
+1. Keep score by counting target hits.
+2. Vary the effect of gravity.
+3. Apply gravity to the targets.
+4. Change the speed of the ball.
 """
 
 from random import randrange
@@ -53,10 +55,10 @@ def move():
         targets.append(target)
 
     for target in targets:
-        target.x -= 0.5
+        target.x -= 2
 
     if inside(ball):
-        speed.y -= 0.35
+        speed.y += 1
         ball.move(speed)
 
     dupe = targets.copy()
@@ -64,15 +66,14 @@ def move():
 
     for target in dupe:
         if abs(target - ball) > 13:
-            """Reposicionamiento de los objetivos"""
-            if not inside(target):
-                target.x = 200 #Se manda al borde derecho
             targets.append(target)
 
+    for target in targets:
+        if not inside(target):
+            target.x += 400
+
     draw()
-
     ontimer(move, 50)
-
 
 setup(420, 420, 370, 0)
 hideturtle()
